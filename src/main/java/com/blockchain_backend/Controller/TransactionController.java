@@ -8,10 +8,14 @@ import com.blockchain_backend.Repositories.BlockChaineRepository;
 import com.blockchain_backend.Repositories.TransactionRepository;
 import com.blockchain_backend.Services.BlockService;
 import com.blockchain_backend.Services.BlockchainService;
+
 import com.blockchain_backend.Services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.Queue;
+import javax.jms.Topic;
 import java.security.NoSuchAlgorithmException;
 
 
@@ -27,11 +31,16 @@ public class TransactionController {
     private BlockChaineRepository blockChaineRepository;
     @Autowired
     TransactionService transactionService;
+    @Autowired
+    private JmsTemplate jmsTemplate;
 
 
     @PostMapping("/sign")
     public void sign(@RequestBody Transaction transaction){
-        transactionService.signTransaction(transaction);
+
+        System.out.println(transaction.toString()+"...............");
+
+
     }
 
     @GetMapping("/mine/{id}")
